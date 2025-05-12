@@ -8,14 +8,14 @@ get_volume() {
     # current=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed -E 's/Volume: 0\.([0-9]+)/\1/')
     current=$(pactl get-sink-volume @DEFAULT_SINK@ | sed -n 's/.* \([0-9]\+\)% .*/\1/p')
     if   [ "$current" -le "20" ]; then
-		icon="audio-volume-low"
+		icon="audio-volume-low-symbolic"
 	elif [ "$current" -le "60" ]; then
-		icon="audio-volume-medium"
+		icon="audio-volume-medium-symbolic"
 	elif [ "$current" -le "100" ]; then
-		icon="audio-volume-high"
+		icon="audio-volume-high-symbolic"
 	else
         title="Volume - overamplified!"
-		icon="audio-volume-high"
+		icon="audio-volume-high-symbolic"
         state="critical"
 	fi
 }

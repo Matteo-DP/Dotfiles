@@ -1,0 +1,96 @@
+configuration {
+  show-icons: true;
+  case-sensitive: false;
+}
+
+@import "~/.cache/wal/colors-rofi-pywal.rasi"
+
+* {
+  font: "Iosevka Nerd Font Medium 11";
+
+  text-color: @foreground;
+
+  accent: @color5;
+  urgent: @color3;
+
+  margin: 0;
+  padding: 2px;        // Slight padding increase
+  spacing: 0;
+}
+
+element-icon, element-text, scrollbar {
+  cursor: pointer;
+}
+
+window {
+  modes: [drun, ssh, dmenu];
+  location: center;
+  width: 30%;
+
+  background-color: rgba(31, 35, 53, 0.8);  // translucent background
+  border: 1px;
+  border-color: @accent;
+  border-radius: 6px;
+  
+}
+
+inputbar {
+  spacing: 8px;
+  padding: 10px 12px;   // Slightly increased padding
+  children: [icon-search, entry];
+  border: 0;           // Remove visual border separator
+  background-color: transparent;
+}
+
+icon-search, entry, element-icon, element-text {
+  vertical-align: 0.5;
+  background-color: transparent;
+}
+
+icon-search {
+  expand: false;
+  filename: "search-symbolic";
+  size: 14px;
+  background-color: transparent;
+  text-color: rgba(255, 0, 0, 0.5);
+}
+
+textbox {
+  padding: 6px 8px;   // Slightly increased padding
+  background-color: transparent;
+}
+
+listview {
+  padding: 6px 0px;    // Slightly increased vertical padding
+  lines: 7;
+  columns: 1;
+  scrollbar: false;
+  fixed-height: false;
+  dynamic: true;
+  border: 0;
+}
+
+element {
+  padding: 6px 8px;   // Slightly increased padding
+  spacing: 6px;
+}
+
+element normal normal {
+  background-color: rgba(29, 32, 46, 0.3);
+}
+
+element alternate normal {
+  background-color: rgba(31, 35, 53, 0.3);
+}
+
+element selected normal {
+  background-color: @accent;
+}
+
+element-icon {
+  size: 1.2em;
+}
+
+element-text {
+  text-color: inherit;
+}
