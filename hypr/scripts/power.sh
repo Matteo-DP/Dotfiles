@@ -7,7 +7,8 @@
 #                              
 
 # Check if eww is open
-FILE="$HOME/.cache/ml4w_sidebar"
+# we don't use ags sidebar
+# FILE="$HOME/.cache/ml4w_sidebar"
 
 if [[ "$1" == "exit" ]]; then
     echo ":: Exit"
@@ -15,14 +16,14 @@ if [[ "$1" == "exit" ]]; then
         rm $FILE
     fi
     sleep 0.5
-    killall -9 Hyprland 
+    uwsm stop ; exec bash
     sleep 2
 fi
 
 if [[ "$1" == "lock" ]]; then
     echo ":: Lock"
     sleep 0.5
-    hyprlock    
+    uwsm app -- hyprlock    
 fi
 
 if [[ "$1" == "reboot" ]]; then
@@ -31,7 +32,7 @@ if [[ "$1" == "reboot" ]]; then
         rm $FILE
     fi
     sleep 0.5
-    systemctl reboot
+    uwsm stop ; systemctl reboot
 fi
 
 if [[ "$1" == "shutdown" ]]; then
@@ -40,7 +41,7 @@ if [[ "$1" == "shutdown" ]]; then
         rm $FILE
     fi
     sleep 0.5
-    systemctl poweroff
+    uwsm stop ; systemctl poweroff
 fi
 
 if [[ "$1" == "suspend" ]]; then
