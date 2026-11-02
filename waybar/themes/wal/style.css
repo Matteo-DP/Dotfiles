@@ -24,6 +24,7 @@ window#waybar {
 #pulseaudio,
 #wireplumber,
 #custom-media,
+#custom-notification,
 #tray,
 #mode,
 #idle_inhibitor,
@@ -89,4 +90,13 @@ window#waybar {
     padding-bottom: 6px;
     font-family: "bargraph";
     font-size: 22px;
+}
+
+#custom-notification {
+    color: @color8;
+}
+
+#custom-notification.notification,
+#custom-notification.dnd-notification {
+    color: @color_accent;
 }

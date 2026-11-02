@@ -21,7 +21,28 @@
         "pulseaudio",
         "battery",
         "tray",
+        "custom/notification",
     ],
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "\uf0f3",
+            "none": "\uf0f3",
+            "dnd-notification": "\uf1f6",
+            "dnd-none": "\uf1f6",
+            "inhibited-notification": "\uf0f3",
+            "inhibited-none": "\uf0f3",
+            "dnd-inhibited-notification": "\uf1f6",
+            "dnd-inhibited-none": "\uf1f6"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
     "hyprland/window": {
 	"format": "{initialTitle}"
     },

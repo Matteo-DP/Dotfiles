@@ -93,6 +93,8 @@ hl.bind(key(mainMod, "mouse:273"), hl.dsp.window.resize(), { mouse = true }) -- 
 hl.bind(key(mainMod, "PRINT"), hl.dsp.exec_cmd(SCRIPTS .. "/simple-screenshot.sh --save")) -- Take a screenshot
 hl.bind("PRINT", hl.dsp.exec_cmd(SCRIPTS .. "/simple-screenshot.sh --copy"))
 hl.bind(key(mainMod, "SPACE"), hl.dsp.exec_cmd(vars.menu))
+hl.bind(key(mainMod, "N"), hl.dsp.exec_cmd("swaync-client -t -sw"))              -- Toggle notification center
+hl.bind(key(mainMod .. " + SHIFT", "N"), hl.dsp.exec_cmd("swaync-client -d -sw")) -- Toggle do not disturb
 -- hl.bind(key(mainMod .. " + SHIFT", "B"), hl.dsp.exec_cmd("~/.config/waybar/launch.sh")) -- Reload waybar
 hl.bind(key(mainMod .. " + SHIFT", "B"), hl.dsp.exec_cmd("killall waybar && sleep 0.1 && waybar &"))
 -- hl.bind(key(mainMod .. " + CTRL", "B"), hl.dsp.exec_cmd("~/.config/waybar/toggle.sh")) -- Toggle waybar
