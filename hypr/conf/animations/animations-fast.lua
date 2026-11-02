@@ -25,3 +25,6 @@ hl.animation({ leaf = "windows",    enabled = true, speed = 3,   bezier = "md3_d
 hl.animation({ leaf = "border",     enabled = true, speed = 10,  bezier = "default" })
 hl.animation({ leaf = "fade",       enabled = true, speed = 2.5, bezier = "md3_decel" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 3.5, bezier = "easeOutExpo", style = "slide" })
+-- Panels, popups and launchers: ease in smoothly, leave a bit quicker
+hl.animation({ leaf = "layersIn",   enabled = true, speed = 3,   bezier = "easeOutExpo" })
+hl.animation({ leaf = "layersOut",  enabled = true, speed = 2,   bezier = "md3_accel" })

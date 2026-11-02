@@ -1,0 +1,367 @@
+// Colors come from colors.css (CSS variables), generated per theme by
+// ~/.config/hypr/colors/hooks/ags.sh and loaded at runtime in app.ts.
+
+window.Osd {
+  background: transparent;
+}
+
+.osd-wrap {
+  // Room for the drop shadow
+  padding: 10px;
+}
+
+.osd-card {
+  background: var(--osd-bg);
+  color: var(--osd-fg);
+  border: 1px solid var(--osd-border);
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  font-family: Inter, Roboto, sans-serif;
+}
+
+.osd-title {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.osd-sub {
+  font-size: 10px;
+  color: var(--osd-dim);
+}
+
+/* ---------- Volume / microphone ---------- */
+
+.osd-level {
+  padding: 6px 18px 6px 6px;
+}
+
+.osd-icon {
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 999px;
+  background: var(--osd-accent-soft);
+  color: var(--osd-accent);
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.osd-pct {
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--osd-accent);
+  font-feature-settings: "tnum";
+}
+
+/* Draggable slider styled as a plain rounded bar (no visible knob).
+   The 3px vertical padding gives the same gaps as before and a bigger grab area. */
+scale.osd-bar {
+  padding: 3px 0;
+  margin: 0;
+  min-height: 0;
+  outline: none;
+}
+
+scale.osd-bar trough {
+  min-height: 5px;
+  margin: 0;
+  padding: 0;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: var(--osd-track);
+}
+
+scale.osd-bar highlight {
+  min-height: 5px;
+  margin: 0;
+  border-radius: 999px;
+  border: none;
+  box-shadow: none;
+  background: var(--osd-accent);
+  transition: background 200ms ease;
+}
+
+scale.osd-bar slider {
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.osd-level.muted .osd-icon {
+  background: var(--osd-error-soft);
+  color: var(--osd-error);
+}
+
+.osd-level.muted scale.osd-bar highlight {
+  background: var(--osd-dim);
+}
+
+.osd-level.muted .osd-pct {
+  color: var(--osd-dim);
+}
+
+.osd-level.over scale.osd-bar highlight,
+.osd-level.over .osd-pct {
+  background: var(--osd-warning);
+  color: var(--osd-warning);
+}
+
+.osd-level.over .osd-pct {
+  background: transparent;
+}
+
+/* ---------- Media ---------- */
+
+.osd-media {
+  padding: 6px 20px 6px 6px;
+}
+
+.osd-cover {
+  border-radius: 999px;
+  background: var(--osd-accent-soft);
+  color: var(--osd-accent);
+  border: 1px solid var(--osd-border);
+}
+
+@keyframes osd-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.osd-cover.spinning {
+  animation: osd-spin 12s linear infinite;
+}
+
+.osd-badge {
+  min-width: 16px;
+  min-height: 16px;
+  border-radius: 999px;
+  background: var(--osd-accent);
+  color: var(--osd-bg-solid);
+  border: 2px solid var(--osd-bg-solid);
+}
+
+.osd-media.paused .osd-badge {
+  background: var(--osd-dim);
+}
+
+.osd-state {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--osd-accent);
+}
+
+.osd-media.paused .osd-state {
+  color: var(--osd-dim);
+}
+
+.osd-progress-row {
+  margin-top: 3px;
+}
+
+.osd-progress trough {
+  min-height: 3px;
+  border-radius: 999px;
+  border: none;
+  background: var(--osd-track);
+}
+
+.osd-progress progress {
+  min-height: 3px;
+  border-radius: 999px;
+  border: none;
+  background: var(--osd-accent);
+}
+
+.osd-media.paused .osd-progress progress {
+  background: var(--osd-dim);
+}
+
+.osd-time {
+  font-size: 9px;
+  color: var(--osd-dim);
+  font-feature-settings: "tnum";
+}
+
+/* ---------- Close button (visible while hovering) ---------- */
+
+.osd-close {
+  min-width: 18px;
+  min-height: 18px;
+  margin: 4px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid var(--osd-border);
+  background: var(--osd-bg-solid);
+  color: var(--osd-dim);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transition: opacity 150ms ease, color 150ms ease, background 150ms ease;
+}
+
+.hover .osd-close {
+  opacity: 1;
+}
+
+.osd-close:hover {
+  color: var(--osd-bg-solid);
+  background: var(--osd-error);
+}
+
+/* ================= Audio panel ================= */
+
+window.AudioCenter {
+  background: transparent;
+}
+
+.audio-panel {
+  margin: 6px 6px 0 0;
+  padding: 14px;
+  border-radius: 18px;
+  background: var(--osd-bg-solid);
+  color: var(--osd-fg);
+  border: 1px solid var(--osd-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  font-family: Inter, Roboto, sans-serif;
+  font-size: 12px;
+}
+
+.audio-panel button {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  color: var(--osd-fg);
+  min-height: 0;
+  min-width: 0;
+  padding: 0;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.audio-panel .section-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--osd-dim);
+}
+
+.audio-panel .mute-button {
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 999px;
+  background: var(--osd-accent-soft);
+  color: var(--osd-accent);
+}
+
+.audio-panel .mute-button:hover {
+  background: var(--osd-accent);
+  color: var(--osd-bg-solid);
+}
+
+.audio-panel .muted .mute-button {
+  background: var(--osd-error-soft);
+  color: var(--osd-error);
+}
+
+.audio-panel .muted scale.osd-bar highlight {
+  background: var(--osd-dim);
+}
+
+.audio-panel .pct {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--osd-accent);
+  font-feature-settings: "tnum";
+}
+
+.audio-panel .muted .pct {
+  color: var(--osd-dim);
+}
+
+.audio-panel .device {
+  padding: 6px 8px;
+  border-radius: 10px;
+  color: var(--osd-dim);
+}
+
+.audio-panel .device:hover {
+  background: var(--osd-accent-soft);
+  color: var(--osd-fg);
+}
+
+.audio-panel .device.active {
+  color: var(--osd-fg);
+}
+
+.audio-panel .radio {
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: 999px;
+  border: 1.5px solid var(--osd-dim);
+}
+
+.audio-panel .device.active .radio {
+  background: var(--osd-accent);
+  border-color: var(--osd-accent);
+}
+
+.audio-panel .section-toggle {
+  padding: 2px 0;
+  border-radius: 8px;
+}
+
+.audio-panel .section-toggle .chevron,
+.audio-panel .section-toggle .app-peek {
+  color: var(--osd-dim);
+}
+
+.audio-panel .section-toggle:hover .chevron,
+.audio-panel .section-toggle:hover .section-title {
+  color: var(--osd-fg);
+}
+
+.audio-panel label.app-peek {
+  font-size: 10px;
+}
+
+.audio-panel .apps-list {
+  margin-top: 6px;
+}
+
+/* App button: the app's own icon, no tinted circle */
+.audio-panel .mute-button.app {
+  background: transparent;
+}
+
+.audio-panel .mute-button.app:hover {
+  background: var(--osd-accent-soft);
+}
+
+/* No icon found: show the name in a small pill */
+.audio-panel .mute-button.named {
+  padding: 0 8px;
+  font-size: 10px;
+  font-weight: 600;
+  background: var(--osd-accent-soft);
+  color: var(--osd-accent);
+}
+
+.audio-panel .muted .mute-button.app image {
+  opacity: 0.35;
+}
+
+.audio-panel .muted .mute-button.app {
+  border: 1px solid var(--osd-error);
+}
+
+.audio-panel .empty {
+  font-size: 11px;
+  color: var(--osd-dim);
+}
+

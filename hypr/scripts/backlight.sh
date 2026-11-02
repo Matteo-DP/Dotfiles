@@ -17,7 +17,9 @@ get_backlight() {
 }
 
 notify() {
-    notify-send -h string:x-canonical-private-synchronous:sys-notify -u low -h "int:value:$current" "Backlight"
+    # Bottom-center OSD (~/.config/ags); fall back to a notification if it isn't running
+    timeout 1 ags request -i osd backlight >/dev/null 2>&1 && return
+    notify-send -e -h boolean:SWAYNC_BYPASS_DND:true -h string:x-canonical-private-synchronous:sys-notify -u low -h "int:value:$current" "Backlight"
 }
 
 # Execute accordingly

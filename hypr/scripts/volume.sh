@@ -20,8 +20,12 @@ get_volume() {
     fi
 }
 
+osd="volume" # which on-screen display to show (volume or mic)
+
 notify() {
-    notify-send -h string:x-canonical-private-synchronous:sys-notify -u $state -h "int:value:$current" "$title"
+    # Bottom-center OSD (~/.config/ags); fall back to a notification if it isn't running
+    timeout 1 ags request -i osd "$osd" >/dev/null 2>&1 && return
+    notify-send -e -h boolean:SWAYNC_BYPASS_DND:true -h string:x-canonical-private-synchronous:sys-notify -u $state -h "int:value:$current" "$title"
 }
 
 inc_volume() {
@@ -51,6 +55,7 @@ toggle_mute() {
 
 toggle_mic() {
     pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    osd="mic"
     icon="audio-input-microphone"
     if pactl get-source-mute @DEFAULT_SOURCE@ | grep -q "Mute: yes"; then
         title="Mic muted"

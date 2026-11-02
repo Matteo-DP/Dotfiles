@@ -8,13 +8,15 @@ CMD="${1:-play-pause}"
 notify_toggle() {
     local player=$1
     local status
+    # Bottom-center OSD (~/.config/ags) with cover art; fall back to a notification
+    timeout 1 ags request -i osd media "$player" >/dev/null 2>&1 && return
     # For some reason the swapping of playing and paused acutally works, change this if necessary.
     status=$(playerctl --player="$player" status 2>/dev/null)
     if [[ "$CMD" == "play-pause" && "$status" == "Paused" ]]; then
-        notify-send -h string:x-canonical-private-synchronous:sys-notify "Mediaplayer" "Player $player is now playing."
+        notify-send -e -h boolean:SWAYNC_BYPASS_DND:true -h string:x-canonical-private-synchronous:sys-notify "Mediaplayer" "Player $player is now playing."
     fi
     if [[ "$CMD" == "play-pause" && "$status" == "Playing" ]]; then
-        notify-send -h string:x-canonical-private-synchronous:sys-notify "Mediaplayer" "Player $player is paused."
+        notify-send -e -h boolean:SWAYNC_BYPASS_DND:true -h string:x-canonical-private-synchronous:sys-notify "Mediaplayer" "Player $player is paused."
     fi
 }
 

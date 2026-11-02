@@ -1,0 +1,14 @@
+/* Auto-generated from colors.sh - used by the AGS on-screen display */
+:root {
+  --osd-bg: rgba(43, 49, 63, 0.85);
+  --osd-bg-solid: #2b313f;
+  --osd-fg: #d9e6f7;
+  --osd-dim: #5c6379;
+  --osd-track: #3a4154;
+  --osd-border: rgba(109, 199, 232, 0.18);
+  --osd-accent: #6dc7e8;
+  --osd-accent-soft: rgba(109, 199, 232, 0.12);
+  --osd-warning: #aec8f0;
+  --osd-error: #e28795;
+  --osd-error-soft: rgba(226, 135, 149, 0.16);
+}

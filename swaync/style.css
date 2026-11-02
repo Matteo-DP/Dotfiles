@@ -14,3 +14,34 @@
 .notification-row .notification-background .notification .notification-default-action .notification-content {
   padding: 6px 8px;
 }
+
+/* Gap between the notification image and its text */
+.notification-row .notification-background .notification .notification-default-action .notification-content .image {
+  margin-right: 8px;
+}
+
+/* Space between title and body, and between wrapped body lines */
+.notification-row .notification-background .notification .notification-default-action .notification-content .text-box .body {
+  margin-top: 4px;
+  line-height: 1.2;
+}
+
+/* Expanded notification groups: room around the header row */
+.notification-group .notification-group-headers,
+.notification-group .notification-group-buttons {
+  padding: 10px 4px 6px 4px;
+}
+
+.notification-group .notification-group-headers .notification-group-icon {
+  margin-right: 8px;
+}
+
+.notification-group .notification-group-headers .notification-group-header {
+  font-size: var(--font-size-summary);
+  font-weight: bold;
+}
+
+.notification-group .notification-group-buttons button {
+  margin-left: 6px;
+  padding: 4px;
+}

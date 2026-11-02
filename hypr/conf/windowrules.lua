@@ -9,7 +9,9 @@ hl.window_rule({ match = { title = "^(Extension: (Bitwarden Password Manager))" 
 hl.window_rule({ match = { class = ".*" }, focus_on_activate = true })
 
 hl.layer_rule({ match = { namespace = "swaync-notification-window" }, animation = "slide" })
-hl.layer_rule({ match = { namespace = "swaync-control-center" }, animation = "slide" })
+hl.layer_rule({ match = { namespace = "swaync-control-center" }, animation = "slide right" })
+hl.layer_rule({ match = { namespace = "ags-osd" }, animation = "slide bottom" })
+hl.layer_rule({ match = { namespace = "ags-audio" }, animation = "none" }) -- panel animates itself
 hl.layer_rule({ match = { namespace = "selection" }, animation = "none" }) -- animations will show up on screenshot
 
 -- Don't open fullscreen
