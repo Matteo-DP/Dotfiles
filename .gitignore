@@ -1,0 +1,36 @@
+# Ignore everything in ~/.config by default
+/*
+
+# ...except these tracked configs
+!/.gitignore
+!/.gitmodules
+!/README.md
+!/hypr/
+!/wofi/
+!/mako/
+!/waybar/
+!/kitty/
+!/btop/
+!/cava/
+!/nwg-look/
+!/xsettingsd/
+!/zed/
+!/xournalpp/
+!/mimeapps.list
+!/nvim
+
+# Only specific files from these folders
+!/gtk-3.0/
+/gtk-3.0/*
+!/gtk-3.0/settings.ini
+!/gtk-4.0/
+/gtk-4.0/*
+!/gtk-4.0/settings.ini
+!/htop/
+/htop/*
+!/htop/htoprc
+!/systemd/
+/systemd/*
+!/systemd/user/
+/systemd/user/*
+!/systemd/user/monitor-hook.service

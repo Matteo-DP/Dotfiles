@@ -1,0 +1,32 @@
+export SYMLINK_TARGET=~/.config/hypr/colors/current-theme/wofi
+export SYMLINK_SOURCE=~/.config/wofi/colors
+
+hook_generate_target() {
+cat > $SYMLINK_TARGET <<EOF
+$COLOR_BACKGROUND
+$COLOR_FOREGROUND
+$COLOR_CURSOR
+$COLOR0
+$COLOR1
+$COLOR2
+$COLOR3
+$COLOR4
+$COLOR5
+$COLOR6
+$COLOR7
+$COLOR8
+$COLOR9
+$COLOR10
+$COLOR11
+$COLOR12
+$COLOR13
+$COLOR14
+$COLOR15
+$COLOR_ACCENT
+$COLOR_WARNING
+$COLOR_ERROR
+$COLOR_SUCCESS
+EOF
+}
+
+export -f hook_generate_target

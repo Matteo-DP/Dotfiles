@@ -1,0 +1,7 @@
+default-timeout=5000
+border-radius=4
+padding=12
+anchor=top-right
+icons=1
+icon-path=/usr/share/icons/Papirus/
+include=~/.config/mako/colors

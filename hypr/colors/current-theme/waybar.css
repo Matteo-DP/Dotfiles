@@ -1,0 +1,27 @@
+/* Auto-generated from colors.sh (GTK3 style) */
+@define-color color_background #2b313f;   /* background */
+@define-color color_foreground #d9e6f7;   /* foreground */
+@define-color color_cursor #6dc7e8;   /* cursor */
+
+@define-color color0 #3a4154;   /* black */
+@define-color color1 #e59aa5;   /* red */
+@define-color color2 #8ecfb3;   /* green */
+@define-color color3 #aec8f0;   /* yellow */
+@define-color color4 #7da8f7;   /* blue */
+@define-color color5 #a8b8f7;   /* magenta */
+@define-color color6 #6dc7e8;   /* cyan */
+@define-color color7 #cfdcf2;   /* white */
+
+@define-color color8 #5c6379;   /* bright black */
+@define-color color9 #e28795;   /* bright red */
+@define-color color10 #9ddac1;   /* bright green */
+@define-color color11 #bfd4f2;   /* bright yellow */
+@define-color color12 #6fa1f5;   /* bright blue */
+@define-color color13 #9caef2;   /* bright magenta */
+@define-color color14 #86d7ed;   /* bright cyan */
+@define-color color15 #edf3fa;   /* bright white */
+
+@define-color color_accent #6dc7e8;   /* accent */
+@define-color color_warning #aec8f0;   /* warning */
+@define-color color_error #e28795;   /* error */
+@define-color color_success #8ecfb3;   /* success */

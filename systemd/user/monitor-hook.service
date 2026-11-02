@@ -1,0 +1,13 @@
+[Unit]
+Description=Handle monitor hotplug
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.config/hypr/scripts/hyprland-monitor-hook.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+

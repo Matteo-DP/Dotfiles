@@ -1,9 +1,0 @@
-@import "config.rasi"
-
-window {
-    location: northeast;
-}
-
-inputbar {
-    border: 0;
-}
