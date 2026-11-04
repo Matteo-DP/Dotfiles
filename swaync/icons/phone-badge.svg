@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- Phone badge (flat Material style): replaces KDE Connect's icon so phone notifications are easy to spot.
+       The phone is drawn flush left so the badge hugs the left edge of the notification image. -->
+  <!-- black body / bezels, with a thin metal rim so it stays visible on dark backgrounds -->
+  <rect x="1" y="2" width="32" height="60" rx="9" fill="#202124" stroke="#5f6368" stroke-width="1"/>
+  <!-- screen -->
+  <rect x="4" y="5" width="26" height="54" rx="6.5" fill="#7baaf7"/>
+  <!-- punch-hole camera -->
+  <circle cx="17" cy="10" r="2.2" fill="#202124"/>
+</svg>

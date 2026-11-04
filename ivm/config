@@ -1,0 +1,6 @@
+# ipad-virtual-monitor — iPad Air 5th gen (iPad13,16), 2360x1640 @ 60 Hz
+WIDTH=2360
+HEIGHT=1640
+FPS=60
+SCALE=1.67
+SIDE=right

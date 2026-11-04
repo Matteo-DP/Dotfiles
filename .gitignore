@@ -5,6 +5,7 @@
 !/.gitignore
 !/.gitmodules
 !/README.md
+!/AGENTS.md
 !/hypr/
 !/wofi/
 !/mako/
@@ -19,7 +20,11 @@
 !/zed/
 !/xournalpp/
 !/mimeapps.list
+!/batsignal
 !/nvim
+
+# ignore the current theme symlinks
+hypr/colors/current-theme/
 
 # Only specific files from these folders
 !/gtk-3.0/
@@ -36,3 +41,13 @@
 !/systemd/user/
 /systemd/user/*
 !/systemd/user/monitor-hook.service
+!/systemd/user/ivm-watch.service
+!/systemd/user/ivm-watch.service.d/
+!/systemd/user/app-dev.lizardbyte.app.Sunshine.service.d/
+
+# iPad second screen (Sunshine + ivm). Not credentials, state (password hash), logs or backups.
+!/sunshine/
+/sunshine/*
+!/sunshine/sunshine.conf
+!/sunshine/apps.json
+!/ivm/

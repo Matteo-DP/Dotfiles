@@ -1,0 +1,47 @@
+--- a/src/notification/notification.vala
++++ b/src/notification/notification.vala
+@@ -306,6 +306,9 @@
+ 
+         private void set_body () {
+             string text = param.body ?? "";
++            // GTK applies the line limit per paragraph, so turn line breaks
++            // into LINE SEPARATORs: the whole body is then one paragraph
++            text = text.replace ("\r\n", "\n").replace ("\n", BODY_LINE_SEP);
+ 
+             this.body.set_lines (this.number_of_body_lines);
+ 
+@@ -388,7 +391,7 @@
+                     Pango.parse_markup (escaped, -1, 0, out attr, out buf, null);
+                 }
+ 
+-                this.body.set_text (buf);
++                this.body.set_text (limit_body_lines (buf));
+                 if (attr != null) {
+                     this.body.set_attributes (attr);
+                 }
+@@ -402,6 +405,25 @@
+             this.body.set_visible (this.body.get_text ().length > 0);
+         }
+ 
++        private const string BODY_LINE_SEP = "\u2028";
++
++        /** Cuts the text after the max number of lines and adds an ellipsis */
++        private string limit_body_lines (string text) {
++            if (this.number_of_body_lines <= 0) {
++                return text;
++            }
++            int pos = 0;
++            int count = 0;
++            while ((pos = text.index_of (BODY_LINE_SEP, pos)) >= 0) {
++                count++;
++                if (count >= this.number_of_body_lines) {
++                    return text.substring (0, pos).chomp () + "\u2026";
++                }
++                pos += BODY_LINE_SEP.length;
++            }
++            return text;
++        }
++
+         /** Returns the first code found, else null */
+         private string ?parse_body_codes () {
+             if (!ConfigModel.instance.notification_2fa_action) {

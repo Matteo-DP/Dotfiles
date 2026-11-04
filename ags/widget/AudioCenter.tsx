@@ -4,6 +4,9 @@ import app from "ags/gtk4/app"
 import { Astal, Gtk, Gdk } from "ags/gtk4"
 import { For, With, createBinding, createComputed, createState, onCleanup, type Accessor } from "ags"
 import { timeout } from "ags/time"
+import { execAsync } from "ags/process"
+import GLib from "gi://GLib"
+import GdkPixbuf from "gi://GdkPixbuf"
 import Pango from "gi://Pango"
 import Wp from "gi://AstalWp"
 import Apps from "gi://AstalApps"
@@ -12,6 +15,7 @@ const TRANSITION = 160 // ms, slide-down of the panel
 
 let win: Astal.Window
 let revealer: Gtk.Revealer
+let panel: Gtk.Box
 let closing = false
 let setAppsOpen: (open: boolean) => void = () => {}
 
@@ -27,11 +31,85 @@ function micIcon(_volume: number, muted: boolean) {
   return muted ? "microphone-sensitivity-muted-symbolic" : "audio-input-microphone-symbolic"
 }
 
-export function openAudio() {
+export async function openAudio() {
   closing = false
   setAppsOpen(false) // Applications starts collapsed every time
+  await positionUnderModule().catch(() => alignRight())
   win.visible = true
   revealer.revealChild = true
+}
+
+/* ---------- Positioning ----------
+   Waybar doesn't expose module positions, so look at the bar itself: grab a
+   thin strip around the pointer and find the edges of the module "pill" that
+   was clicked (it's filled with the theme background colour). */
+
+const EDGE_GAP = 6 // keep the panel this far from the screen edges
+const BAR_HEIGHT = 50 // only look at clicks in this top strip
+
+function alignRight() {
+  revealer.halign = Gtk.Align.END
+  revealer.marginStart = 0
+  revealer.marginEnd = EDGE_GAP
+}
+
+function themeBackground(): number[] | null {
+  try {
+    const [, bytes] = GLib.file_get_contents(`${GLib.get_user_config_dir()}/ags/colors.css`)
+    const hex = new TextDecoder().decode(bytes).match(/--osd-bg-solid:\s*#([0-9a-fA-F]{6})/)?.[1]
+    return hex ? [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16)) : null
+  } catch {
+    return null
+  }
+}
+
+async function positionUnderModule() {
+  const cursor = JSON.parse(await execAsync(["hyprctl", "cursorpos", "-j"]))
+  const monitors = JSON.parse(await execAsync(["hyprctl", "monitors", "-j"]))
+  const mon = monitors.find(
+    (m: any) =>
+      cursor.x >= m.x && cursor.x < m.x + m.width / m.scale &&
+      cursor.y >= m.y && cursor.y < m.y + m.height / m.scale,
+  )
+  if (!mon || cursor.y - mon.y > BAR_HEIGHT) return alignRight()
+
+  const monWidth = Math.round(mon.width / mon.scale)
+  let center = cursor.x - mon.x // fallback: under the pointer
+
+  // Find the clicked pill's edges in a screenshot of the bar
+  const bg = themeBackground()
+  const left = Math.max(0, cursor.x - 300)
+  const width = Math.min(mon.x + monWidth, cursor.x + 300) - left
+  const file = `${GLib.get_user_runtime_dir()}/ags-audio-bar.png`
+  if (bg && width > 0) {
+    await execAsync(["grim", "-s", "1", "-g", `${left},${mon.y} ${width}x${BAR_HEIGHT}`, file])
+    const img = GdkPixbuf.Pixbuf.new_from_file(file)
+    const px = img.get_pixels()
+    const stride = img.get_rowstride()
+    const n = img.get_n_channels()
+    const isPill = (x: number, y: number) => {
+      const i = y * stride + x * n
+      return Math.abs(px[i] - bg[0]) + Math.abs(px[i + 1] - bg[1]) + Math.abs(px[i + 2] - bg[2]) < 18
+    }
+    const cx = cursor.x - left
+    // A row just inside the pill's top edge has no text on it
+    let top = -1
+    for (let y = 0; y < img.get_height(); y++) if (isPill(cx, y)) { top = y; break }
+    if (top >= 0) {
+      const row = top + 2
+      let l = cx, r = cx
+      while (l > 0 && isPill(l - 1, row)) l--
+      while (r < img.get_width() - 1 && isPill(r + 1, row)) r++
+      // Rounded corners shrink both ends equally, so the middle is exact
+      if (r - l > 8) center = left - mon.x + (l + r) / 2
+    }
+  }
+
+  const [, panelWidth] = panel.measure(Gtk.Orientation.HORIZONTAL, -1)
+  const start = Math.round(center - panelWidth / 2)
+  revealer.halign = Gtk.Align.START
+  revealer.marginEnd = 0
+  revealer.marginStart = Math.max(EDGE_GAP, Math.min(start, monWidth - panelWidth - EDGE_GAP))
 }
 
 export function closeAudio() {
@@ -45,7 +123,8 @@ export function closeAudio() {
 }
 
 export function toggleAudio() {
-  win.visible && !closing ? closeAudio() : openAudio()
+  if (win.visible && !closing) closeAudio()
+  else openAudio().catch(console.error)
 }
 
 /* ---------- Building blocks ---------- */
@@ -309,7 +388,13 @@ export default function AudioCenter() {
           transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
           transitionDuration={TRANSITION}
         >
-          <box class="audio-panel" orientation={VERTICAL} spacing={14} widthRequest={340}>
+          <box
+            $={(self) => (panel = self)}
+            class="audio-panel"
+            orientation={VERTICAL}
+            spacing={14}
+            widthRequest={340}
+          >
             <Section title="Output">
               <With value={createBinding(audio, "defaultSpeaker")}>
                 {(sp: Wp.Endpoint | null) => (sp ? <VolumeRow node={sp} icon={volumeIcon} /> : <box />)}

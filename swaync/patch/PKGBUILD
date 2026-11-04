@@ -1,0 +1,41 @@
+# Arch's swaync PKGBUILD plus limit-body-lines.patch.
+# The patch caps the notification body's TOTAL height (5 lines in popups,
+# 10 in the panel) with an ellipsis. Upstream limits each paragraph only, so
+# bodies with many line breaks grew without limit.
+#
+# pkgrel 1.1 > 1, so an official update (pkgrel 2 or a new pkgver) replaces
+# this build. Rebuild after that: bump pkgver/sha256sums, check the patch.
+# Build:  cd ~/.config/swaync/patch && makepkg -si --cleanbuild
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Erik Reider <erik.reider@protonmail.com>
+
+pkgname=swaync
+_pkgname=SwayNotificationCenter
+pkgver=0.12.6
+pkgrel=1.1
+pkgdesc="A simple GTK based notification daemon for Sway (body line limit patch)"
+url="https://github.com/ErikReider/SwayNotificationCenter"
+arch=('x86_64')
+license=('GPL-3.0-only')
+depends=('gtk4' 'gtk4-layer-shell' 'libadwaita' 'glib2' 'libgee' 'json-glib' 'libpulse' 'granite7')
+makedepends=('vala' 'meson' 'git' 'scdoc' 'sassc' 'gobject-introspection' 'blueprint-compiler')
+optdepends=('gvfs: Get album art in MPRIS widget')
+source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
+        "limit-body-lines.patch")
+sha256sums=('0c844eb5c9524f924495bd4145e5db575096de36f3ec87fb37e4c1ed6eacb897'
+            'SKIP')
+
+prepare() {
+	cd "${_pkgname}-${pkgver}"
+	patch -Np1 -i "${srcdir}/limit-body-lines.patch"
+}
+
+build() {
+	arch-meson "${_pkgname}-${pkgver}" build -Dscripting=true
+	ninja -C build
+}
+
+package() {
+	DESTDIR="${pkgdir}" ninja -C build install
+	install -Dm 644 "${_pkgname}-${pkgver}/README.md" "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+}

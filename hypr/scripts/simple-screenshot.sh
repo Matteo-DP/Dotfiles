@@ -23,5 +23,5 @@ esac
 if [ $RES -eq 0 ]; then
     notify-send -e -h boolean:SWAYNC_BYPASS_DND:true -u normal -a "Screenshot Tool" -i camera "$TITLE" "$DESC"
 else
-    notify-send -e -h boolean:SWAYNC_BYPASS_DND:true -u critical -a "Screenshot Tool" -i dialog-error "Screenshot cancelled" "$OUTPUT"
+    notify-send -e -h boolean:SWAYNC_BYPASS_DND:true -u normal -a "Screenshot Tool" -i dialog-error "Screenshot cancelled" "$OUTPUT"
 fi

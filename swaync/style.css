@@ -8,6 +8,8 @@
   --font-size-body: 13px;
   --font-size-summary: 14px;
   --notification-icon-size: 48px;
+  /* Corner badge on the image (KDE Connect's is the phone badge, see icons/) */
+  --notification-app-icon-size: 40px;
 }
 
 /* Extra breathing room inside each notification */
@@ -44,4 +46,25 @@
 .notification-group .notification-group-buttons button {
   margin-left: 6px;
   padding: 4px;
+}
+
+/* Progress bars (battery level, etc.) in theme colours */
+.notification-row .notification-background .notification progressbar trough {
+  min-height: 6px;
+  border-radius: 999px;
+  background: var(--noti-bg-darker);
+}
+
+.notification-row .notification-background .notification progressbar progress {
+  min-height: 6px;
+  border-radius: 999px;
+  background: var(--bg-selected);
+}
+
+/* Corner app badge: bigger and lifted off the image so the phone badge
+   (KDE Connect's icon is replaced by icons/phone-badge.svg) stands out */
+.notification-row .notification-background .notification .notification-default-action .notification-content .app-icon {
+  -gtk-icon-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  /* Badge sits bottom-left: overlay is 60px wide (4 + 48 + 8 margins), badge is 40px */
+  margin: 0 26px -6px -6px;
 }

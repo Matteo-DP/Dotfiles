@@ -7,9 +7,9 @@
 @import url("./themes/wal/colors.css");
 
 window#waybar {
-    background-color: rgba(5, 5, 5, 40);
-    color: @color_text;
-    margin: 0px 4px;
+    background: transparent;
+    /* color: @color_text; */
+    margin: 0px 2px;
     border-radius: 24px;
 }
 
@@ -34,7 +34,7 @@ window#waybar {
     padding: 4px 12px 4px 10px;
     color: @color_text;
     background-color: @color_background;
-    margin: 4px 2px;
+    margin: 1px 2px;
     border-radius: 12px;
 }
 
@@ -62,7 +62,7 @@ window#waybar {
 
 #taskbar,
 #workspaces {
-    margin: 4px 0px;
+    margin: 1px 0px;
     margin-left: 4px;
     margin-right: 8px;
 }

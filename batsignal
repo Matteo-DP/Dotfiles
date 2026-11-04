@@ -1,0 +1,35 @@
+# batsignal configuration (one argument per line, see `man batsignal`)
+# Notifications are sent by ~/.config/hypr/scripts/battery-notify.sh
+
+# Battery to watch
+-n
+BAT0
+
+# Levels (percent)
+-w
+15
+-c
+7
+-d
+3
+
+# Messages are passed to the script as the kind of alert ('%s' = message,
+# second %s = battery level)
+-W
+warning
+-C
+critical
+-P
+charging
+-M
+~/.config/hypr/scripts/battery-notify.sh '%s' %s
+
+# Run at the danger level (batsignal sends no message there itself)
+-D
+~/.config/hypr/scripts/battery-notify.sh danger
+
+# Tell the script when the charger is plugged in, so it can close the warning
+-p
+
+# The script sends the notifications; turn off batsignal's built-in ones
+-N

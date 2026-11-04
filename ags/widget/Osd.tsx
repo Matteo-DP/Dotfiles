@@ -27,10 +27,8 @@ let hoverArea: Gtk.Overlay
 // Volume / mic / backlight card
 let levelCard: Gtk.Box
 let levelIcon: Gtk.Image
-let levelTitle: Gtk.Label
 let levelPct: Gtk.Label
 let levelBar: Gtk.Scale
-let levelSub: Gtk.Label
 
 // Media card
 let mediaCard: Gtk.Box
@@ -128,9 +126,6 @@ function updateVolume() {
   const pct = Math.round(speaker.volume * 100)
   const muted = speaker.mute
   levelIcon.iconName = volumeIcon(pct, muted)
-  // No title in the normal state; only call out muted / overamplified
-  levelTitle.label = muted ? "Muted" : pct > 100 ? "Overamplified" : ""
-  levelSub.label = speaker.description ?? ""
   setLevel(pct)
   toggleClass(levelCard, "muted", muted)
 }
@@ -142,8 +137,6 @@ function updateMic() {
   levelIcon.iconName = muted
     ? "microphone-sensitivity-muted-symbolic"
     : "audio-input-microphone-symbolic"
-  levelTitle.label = muted ? "Microphone muted" : "Microphone live"
-  levelSub.label = mic.description ?? ""
   setLevel(Math.round(mic.volume * 100))
   toggleClass(levelCard, "muted", muted)
 }
@@ -152,8 +145,6 @@ function updateBacklight() {
   const pct = backlightPct()
   if (pct === null) return
   levelIcon.iconName = "display-brightness-symbolic"
-  levelTitle.label = ""
-  levelSub.label = " " // empty line keeps the bar in the same spot as volume
   setLevel(pct)
   toggleClass(levelCard, "muted", false)
 }
@@ -301,10 +292,10 @@ export default function Osd() {
       application={app}
       visible={false}
       layer={Astal.Layer.OVERLAY}
-      exclusivity={Astal.Exclusivity.IGNORE}
+      exclusivity={Astal.Exclusivity.NORMAL}
       keymode={Astal.Keymode.NONE}
-      anchor={Astal.WindowAnchor.BOTTOM}
-      marginBottom={6}
+      anchor={Astal.WindowAnchor.TOP}
+      marginTop={6}
     >
       <Gtk.Overlay $={setupHover}>
         <box class="osd-wrap">
@@ -313,32 +304,27 @@ export default function Osd() {
             <box class="osd-icon" valign={CENTER}>
               <image
                 $={(self) => (levelIcon = self)}
-                pixelSize={15}
+                pixelSize={14}
                 hexpand
                 vexpand
                 halign={CENTER}
                 valign={CENTER}
               />
             </box>
-            <box orientation={VERTICAL} valign={CENTER}>
-              <box spacing={12}>
-                <label $={(self) => (levelTitle = self)} class="osd-title" xalign={0} hexpand />
-                <label $={(self) => (levelPct = self)} class="osd-pct" xalign={1} />
-              </box>
-              <Gtk.Scale
-                $={setupSlider}
-                class="osd-bar"
-                widthRequest={190}
-                drawValue={false}
-              />
-              <label
-                $={(self) => (levelSub = self)}
-                class="osd-sub"
-                xalign={1}
-                ellipsize={Pango.EllipsizeMode.END}
-                maxWidthChars={30}
-              />
-            </box>
+            <Gtk.Scale
+              $={setupSlider}
+              class="osd-bar"
+              widthRequest={190}
+              valign={CENTER}
+              drawValue={false}
+            />
+            <label
+              $={(self) => (levelPct = self)}
+              class="osd-pct"
+              valign={CENTER}
+              xalign={1}
+              widthChars={4}
+            />
           </box>
 
           {/* Media */}

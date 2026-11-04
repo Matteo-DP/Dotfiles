@@ -1,0 +1,18 @@
+[Unit]
+Description=ipad-virtual-monitor: remove the virtual output when the stream ends
+Documentation=https://github.com/diegostrg/ipad-virtual-monitor
+
+[Service]
+Type=simple
+# Adjust this path to wherever the repository lives, or symlink bin/ivm into
+# ~/.local/bin and keep the default.
+ExecStart=%h/.local/bin/ivm watch
+# The supervisor needs the compositor, but it waits for it on its own: at login
+# there is no socket yet, and `graphical-session.target` is not active on every
+# Hyprland setup. Starting early and retrying is more portable than ordering.
+Restart=always
+RestartSec=5
+TimeoutStopSec=5
+
+[Install]
+WantedBy=default.target

@@ -31,13 +31,15 @@ window.Osd {
 
 /* ---------- Volume / microphone ---------- */
 
+/* Even 3px gap above, below and left of the round icon, so the pill's
+   curve runs parallel to the icon's */
 .osd-level {
-  padding: 6px 18px 6px 6px;
+  padding: 3px 16px 3px 3px;
 }
 
 .osd-icon {
-  min-width: 32px;
-  min-height: 32px;
+  min-width: 28px;
+  min-height: 28px;
   border-radius: 999px;
   background: var(--osd-accent-soft);
   color: var(--osd-accent);
@@ -49,6 +51,14 @@ window.Osd {
   font-size: 11px;
   color: var(--osd-accent);
   font-feature-settings: "tnum";
+}
+
+.osd-level.muted .osd-pct {
+  color: var(--osd-dim);
+}
+
+.osd-level.over .osd-pct {
+  color: var(--osd-error);
 }
 
 /* Draggable slider styled as a plain rounded bar (no visible knob).
@@ -101,18 +111,14 @@ scale.osd-bar slider {
   background: var(--osd-dim);
 }
 
-.osd-level.muted .osd-pct {
-  color: var(--osd-dim);
+/* Overamplified (above 100%): icon, slider and percentage turn red */
+.osd-level.over .osd-icon {
+  background: var(--osd-error-soft);
+  color: var(--osd-error);
 }
 
-.osd-level.over scale.osd-bar highlight,
-.osd-level.over .osd-pct {
-  background: var(--osd-warning);
-  color: var(--osd-warning);
-}
-
-.osd-level.over .osd-pct {
-  background: transparent;
+.osd-level.over scale.osd-bar highlight {
+  background: var(--osd-error);
 }
 
 /* ---------- Media ---------- */
@@ -221,7 +227,7 @@ window.AudioCenter {
 }
 
 .audio-panel {
-  margin: 6px 6px 0 0;
+  margin: 6px 0 0 0;
   padding: 14px;
   border-radius: 18px;
   background: var(--osd-bg-solid);
