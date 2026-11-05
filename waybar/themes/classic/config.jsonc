@@ -1,0 +1,16 @@
+// -*- mode: jsonc -*-
+// Theme: classic. The older setup (formerly themes/wal-old), with spacers
+// at both ends and a notification bell.
+{
+    "include": ["~/.config/waybar/modules.jsonc"],
+
+    "margin-top": 4,
+    "margin-left": 6,
+    "margin-right": 6,
+    "margin-bottom": 0,
+    "spacing": 2,
+
+    "modules-left": ["custom/empty", "hyprland/workspaces", "wlr/taskbar"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "battery", "tray", "custom/notification", "custom/empty"]
+}

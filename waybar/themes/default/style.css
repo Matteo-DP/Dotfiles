@@ -1,14 +1,18 @@
+/* Theme: default. Transparent bar, each module is a separate pill.
+   Colours come from the generated colors.css (hypr theme framework).
+   Paths resolve relative to ~/.config/waybar/, where style.css lives. */
+@import url("colors.css");
+
+@define-color color_text @color_foreground;
+
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 12px;
 }
 
-@import url("./themes/wal/colors.css");
-
 window#waybar {
     background: transparent;
-    /* color: @color_text; */
     margin: 0px 2px;
     border-radius: 24px;
 }
@@ -25,6 +29,7 @@ window#waybar {
 #wireplumber,
 #custom-media,
 #custom-notification,
+#custom-cava,
 #tray,
 #mode,
 #idle_inhibitor,
@@ -34,7 +39,7 @@ window#waybar {
     padding: 4px 12px 4px 10px;
     color: @color_text;
     background-color: @color_background;
-    margin: 1px 2px;
+    margin: 1px 2px 0px 2px;
     border-radius: 12px;
 }
 
@@ -43,6 +48,9 @@ window#waybar {
     background-color: @color_background;
     padding: 0px;
     border-radius: 10px;
+    margin: 1px 0px 0px 0px;
+    margin-left: 4px;
+    margin-right: 8px;
 }
 
 #taskbar button,
@@ -55,16 +63,19 @@ window#waybar {
     border: 0px;
 }
 
+/* Centre the number in its square, measured pixel by pixel.
+   The digits are 9px tall, so the square is 25x25 (odd) to leave
+   8px above and below. Digits have no descenders, so the label sits
+   high; the 5px top padding moves it down. The 5px/4px left/right
+   padding centres a 7px-wide digit (like 4) with 9px on each side. */
+#workspaces button {
+    min-height: 20px;
+    padding: 5px 4px 0px 5px;
+}
+
 #taskbar button.active,
 #workspaces button.active {
     background-color: @color8;
-}
-
-#taskbar,
-#workspaces {
-    margin: 1px 0px;
-    margin-left: 4px;
-    margin-right: 8px;
 }
 
 #clock {
@@ -85,8 +96,6 @@ window#waybar {
 
 #custom-cava {
     color: @color13;
-    border-left: 0px;
-    border-right: 0px;
     padding-bottom: 6px;
     font-family: "bargraph";
     font-size: 22px;

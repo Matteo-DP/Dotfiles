@@ -1,0 +1,118 @@
+/* Theme: classic. Solid rounded bar (formerly themes/wal-old).
+   Colours come from the generated colors.css (hypr theme framework).
+   Paths resolve relative to ~/.config/waybar/, where style.css lives. */
+@import url("colors.css");
+
+@define-color color_text @color_foreground;
+/* Bar background: theme background at 80% opacity. Lower = more see-through. */
+@define-color bar_background alpha(@color_background, 0.8);
+
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+}
+
+window#waybar {
+    background-color: @bar_background;
+    color: @color_text;
+    border-radius: 8px;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#custom-notification,
+#custom-cava,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd {
+    padding: 4px 12px 4px 10px;
+    color: @color_text;
+    background-color: transparent;
+    margin: 1px 2px 0px 2px;
+    border-radius: 12px;
+}
+
+#taskbar,
+#workspaces {
+    background-color: transparent;
+    padding: 0px;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    border-radius: 10px;
+    margin: 1px 0px 0px 0px;
+    margin-left: 4px;
+    margin-right: 8px;
+}
+
+#taskbar button,
+#workspaces button {
+    background-color: transparent;
+    box-shadow: none;
+    text-shadow: none;
+    padding: 0px 4px;
+    border-radius: 8px;
+    border: 0px;
+}
+
+/* Centre the number in its square, measured pixel by pixel.
+   The digits are 9px tall, so the square is 25x25 (odd) to leave
+   8px above and below. Digits have no descenders, so the label sits
+   high; the 5px top padding moves it down. The 5px/4px left/right
+   padding centres a 7px-wide digit (like 4) with 9px on each side. */
+#workspaces button {
+    min-height: 20px;
+    padding: 5px 4px 0px 5px;
+}
+
+#taskbar button.active,
+#workspaces button.active {
+    background-color: @color10;
+}
+
+#clock {
+    margin-top: 2px;
+    color: @color10;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#battery {
+    color: @color11;
+}
+
+#network {
+    color: @color12;
+}
+
+#pulseaudio {
+    color: @color13;
+}
+
+#custom-cava {
+    color: @color13;
+    padding-bottom: 6px;
+    font-family: "bargraph";
+    font-size: 22px;
+}
+
+#custom-notification {
+    color: @color8;
+}
+
+#custom-notification.notification,
+#custom-notification.dnd-notification {
+    color: @color_accent;
+}
