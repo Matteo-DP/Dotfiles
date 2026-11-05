@@ -1,19 +1,19 @@
 /* Auto-generated from colors.sh */
 :root {
-  --cc-bg: rgba(43, 49, 63, 0.96);
-  --noti-border-color: #6dc7e8;
-  --noti-bg: 43, 49, 63;
+  --cc-bg: rgba(15, 17, 18, 0.96);
+  --noti-border-color: #5e5e67;
+  --noti-bg: 15, 17, 18;
   --noti-bg-alpha: 0.92;
-  --noti-bg-darker: #3a4154;
-  --noti-bg-hover: #3a4154;
-  --noti-bg-focus: rgba(92, 99, 121, 0.6);
-  --noti-close-bg: #3a4154;
-  --noti-close-bg-hover: #5c6379;
-  --text-color: #d9e6f7;
-  --text-color-disabled: #5c6379;
-  --bg-selected: #6dc7e8;
+  --noti-bg-darker: #0f1112;
+  --noti-bg-hover: #0f1112;
+  --noti-bg-focus: rgba(94, 94, 103, 0.6);
+  --noti-close-bg: #0f1112;
+  --noti-close-bg-hover: #5e5e67;
+  --text-color: #c3c3c3;
+  --text-color-disabled: #5e5e67;
+  --bg-selected: #5e5e67;
 }
 
 .notification-row .notification-background .notification.critical {
-  border: 1px solid #e28795;
+  border: 1px solid #cead97;
 }

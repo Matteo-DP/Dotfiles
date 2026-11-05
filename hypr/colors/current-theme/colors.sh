@@ -1,1 +1,1 @@
-/home/nekros/.config/hypr/colors/themes/slate/colors.sh
+/home/nekros/.config/hypr/colors/themes/wal/colors.sh
