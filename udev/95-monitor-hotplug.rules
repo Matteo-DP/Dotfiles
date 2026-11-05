@@ -1,0 +1,4 @@
+# /etc/udev/rules.d/95-monitor-hotplug.rules
+ACTION=="change", SUBSYSTEM=="drm", ENV{HOTPLUG}=="1", TAG+="systemd", \
+    ENV{SYSTEMD_USER_WANTS}+="monitor-hotplug@%k.service"
+

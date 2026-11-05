@@ -399,7 +399,7 @@ creates and removes that output.
 
 1. Plugging the iPad in: `usbmuxd-ncm` (AUR build of usbmuxd) switches it to
    USB mode 3, so it shows up as a `cdc_ncm` network device.
-2. `/etc/udev/rules.d/79-ipad-usb.rules` (Apple vendor `05ac`) names the
+2. `/etc/udev/rules.d/79-ipad-usb.rules` (copy in `~/.config/udev/`, Apple vendor `05ac`) names the
    interfaces: USB interface 02 becomes **`ipad0`** (tethering, used by Moonlight), and interface
    04 becomes `ipadmux0` (NetworkManager ignores it). On `ipad0` it sets
    `SYSTEMD_USER_WANTS`, which starts both user units:
@@ -458,6 +458,7 @@ Measured 2026-11-04 while streaming 2360x1640 at 60 fps:
     `cava`, `nwg-look`, `xsettingsd`, `zed`, `xournalpp`.
   - `mimeapps.list`, `batsignal`, `README.md`, `AGENTS.md`.
   - The `gtk-*/settings.ini` files, `htop/htoprc`, `systemd/user/monitor-hook.service`.
+  - `udev/`: copies of the custom rules in `/etc/udev/rules.d`, with a README on how to install them.
   - iPad setup: `sunshine/sunshine.conf`, `sunshine/apps.json`, `ivm/config`,
     `systemd/user/ivm-watch.service`, and the `ipad.conf` drop-ins for it and Sunshine.
 - `nvim` is a **git submodule** (`Matteo-DP/dotfiles-nvim`). It has its own repo
@@ -505,9 +506,11 @@ Measured 2026-11-04 while streaming 2360x1640 at 60 fps:
 - zsh doesn't split unquoted variables into words the way bash does. Write
   scripts for `#!/bin/bash`, or loop with `while read`.
 - The iPad drop-ins (`systemd/user/*.d/ipad.conf`) have comments that say
-  `70-ipad-usb.rules`, but the real file is `/etc/udev/rules.d/79-ipad-usb.rules`.
+  `70-ipad-usb.rules`, but the real file is `79-ipad-usb.rules`.
   It must sort after `75-net-description.rules`, which sets the `ID_*` properties it matches on.
-- The iPad udev rule (`/etc/udev/rules.d/79-ipad-usb.rules`) is outside the repo.
-  Back it up before you change it. Its user-side files are tracked (section 11).
+- udev rules live in `/etc/udev/rules.d/`. The repo keeps copies in `~/.config/udev/`;
+  editing a copy does nothing until it is installed (`udev/README.md`). Keep the
+  two copies in sync. `95-monitor-hotplug.rules` points to a unit that doesn't exist,
+  so it has no effect.
   Never track `sunshine/credentials` or `sunshine/sunshine_state.json`: they hold
   pairing keys and the web UI password hash.

@@ -1,0 +1,7 @@
+# iPad over USB-C (usbmuxd mode 3, cdc_ncm). Fixed interface names on any port,
+# and start Sunshine + ivm-watch in the user session when the iPad appears.
+# Runs after 75-net-description.rules (which sets ID_*) and before 80-net-setup-link.
+# Interface 02 = tethering network (Moonlight), 04 = Apple private multiplexor.
+# No ACTION=="add": the rename fires a "move" event, and the properties must survive it.
+SUBSYSTEM=="net", ENV{ID_VENDOR_ID}=="05ac", ENV{ID_USB_DRIVER}=="cdc_ncm", ENV{ID_USB_INTERFACE_NUM}=="02", NAME="ipad0", ENV{SYSTEMD_USER_WANTS}="app-dev.lizardbyte.app.Sunshine.service ivm-watch.service"
+SUBSYSTEM=="net", ENV{ID_VENDOR_ID}=="05ac", ENV{ID_USB_DRIVER}=="cdc_ncm", ENV{ID_USB_INTERFACE_NUM}=="04", NAME="ipadmux0", ENV{NM_UNMANAGED}="1"

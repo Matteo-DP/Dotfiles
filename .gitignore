@@ -21,6 +21,7 @@
 !/xournalpp/
 !/mimeapps.list
 !/batsignal
+!/udev/
 !/nvim
 
 # ignore the current theme symlinks
